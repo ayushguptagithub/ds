@@ -1,0 +1,325 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a  href="#home">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a class="active" href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+        - To implement singly linked list ADT
+
+        #include stdio.h
+        #include stdlib.h
+        // A linked list (LL) node to store a data element
+        struct node
+        {
+        int data;
+        struct node* next;
+        }*start;
+        //Insert data at the beginning
+        void insert_at_beg(int x)
+        {
+        struct node* newnode=(struct node*)malloc(sizeof(struct node));
+        printf("\nEnter the data :");
+        scanf("%d",&x);
+        if(start==NULL)//if LL is empty
+        {
+        newnode->data=x;
+        newnode->next=NULL;
+        start=newnode;
+        }
+        else
+        {
+        newnode->data=x;
+        newnode->next=start;
+        start=newnode;
+        }
+        }
+        //Insert data at the end
+        void insert_at_end(int x)
+        {
+        struct node* ptr;
+        struct node* newnode=(struct node*)malloc(sizeof(struct node));
+        printf("\nEnter the data :");
+        scanf("%d",&x);
+        newnode->data=x;
+        newnode->next=NULL;
+        if(start==NULL)//if LL is empty
+        { newnode->data=x;
+        newnode->next=NULL;
+        start=newnode;
+        }
+        else //if not empty then
+        {
+        ptr=start;
+        while(ptr->next!=NULL)//traverse through LL till last node
+        ptr=ptr->next;
+        ptr->next=newnode;//link last node of next to newnode
+        }
+        }
+        //Insert data at specific position
+        void insert_at_specific_position(int x,int pos)
+        {
+        struct node* ptr;
+        ptr=start;
+        int i=0;
+        struct node*newnode=(struct node*)malloc(sizeof(struct node));
+        printf("\nEnter the data :");
+        scanf("%d",&x);
+        printf("Enter the position :");
+        scanf("%d",&pos);
+        newnode->data=x;
+        if(start==NULL)//if LL is empty
+        {
+        start=newnode;
+        newnode->next=NULL;
+        }
+        else
+        {
+        while(i<(pos-2))//if pos=5 while loop will continue from 0 till i<3
+        {
+        ptr=ptr->next;//in last iteration ptr=3->next i.e 4
+        i++;
+        }
+        newnode->next=ptr->next;//ptr->next is 4->next i.e 5 that is 5th node shifted to 6th position
+        ptr->next=newnode;//4->next is set to newnode i.e newnode is added at 5th position
+        }
+        }
+        //Delete data from beginning
+        void delete_from_beg()
+        {
+        struct node* ptr;
+        if(start==NULL)
+        {
+        printf("\nUNDERFLOW ! ! !");
+        //break;
+        }
+        else
+        {
+        ptr=start;
+        start=start->next;
+        printf("\n%d is deleted...",ptr->data);
+        free(ptr);
+        }
+        }
+        //Delete data from end
+        void delete_from_end()
+        {
+        struct node* ptr,*preptr;
+        if(start==NULL)
+        {
+        printf("\nUNDERFLOW ! ! !");
+        //break;
+        }
+        else
+        {
+        ptr=start;
+        if(ptr->next==NULL)//if there is only one element in the LL
+        {
+        printf("\n%d is deleted...",ptr->data);
+        start=NULL;
+        free(ptr);
+        }
+        else
+        {
+        while(ptr->next!=NULL)
+        {
+        preptr=ptr;//preptr=1
+        ptr=ptr->next;//ptr=ptr->next=1->next=2
+        }
+        preptr->next=NULL;
+        printf("\n%d is deleted...",ptr->data);
+        free(ptr);
+        }
+        }
+        }
+        //Delete data from specific position
+        void delete_from_specific_position(int pos)
+        {
+        struct node* ptr,* temp;
+        int i=0;
+        if(start==NULL)
+        {
+        printf("\nUNDERFLOW ! ! !");
+        //break;
+        }
+        else
+        {
+        printf("\nEnter the position :");
+        scanf("%d",&pos);
+        ptr=start;
+        if(ptr->next==NULL)//if there is only one node in the LL
+        {
+        printf("\n%d is deleted...",ptr->data);
+        start=NULL;
+        free(ptr);
+        }
+        else
+        {
+        while(i<(pos-1))//if pos=4 then while loop will continue from 0 to 3
+        {
+        temp=ptr;//in last iteration temp=4
+        ptr=ptr->next;//ptr=4->next=5
+        i++;
+        }
+        temp->next=ptr->next;//4->next=5->next i.e. 4->next=6
+        printf("\n%d is deleted...",ptr->data);
+        free(ptr);
+        }
+        }
+        }
+        void display()
+        {
+        struct node *ptr=start;
+        if(ptr==NULL)
+        {
+        printf("\nSORRY ! NO ELEMENT ! ! !");
+        }
+        else
+        {
+        while(ptr!=NULL)
+        {
+        printf("%d -> ",ptr->data);
+        ptr=ptr->next;
+        }
+        }
+        }
+        void main()
+        {
+        start=NULL;
+        //head;
+        int ch,x,pos;
+        int z=1;
+        while(z) //While loop to keep program in loop
+        {
+        printf("\n\n-----------------------------------------\n");
+        printf("1. Insert at the begining\n");
+        printf("2. Insert at the end\n");
+        printf("3. Insert at a specific position\n");
+        printf("4. Delete from begining\n");
+        printf("5. Delete from the end\n");
+        printf("6. Delete from a specific position\n");
+        printf("7. Display\n");
+        printf("8. Exit");
+        printf("\n-------------------------------------------\n");
+        printf("ENTER A CHOICE :");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1: insert_at_beg(x);
+        break;
+        case 2: insert_at_end(x);
+        break;
+        case 3: insert_at_specific_position(x,pos);
+        break;
+        case 4: delete_from_beg();
+        break;
+        case 5: delete_from_end();
+        break;
+        case 6: delete_from_specific_position(pos);
+        break;
+        case 7: display();
+        break;
+        case 8: exit(0);
+        break;
+        default : printf("\nOOPS ! WRONG CHOICE !");
+        break;
+        }
+        //goto head;
+        printf(" \n Do you want to cotin....? press 1 or 0 ");
+        scanf("%d",&x);
+        }//end of while loop
+        }//end of main()
+                    
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+Create a class Node which has two attributes: data and next. Next is a pointer to the next node.
+Create another class which has two attributes: head and tail.
+addNode() will add a new node to the list:
+    -Create a new node.
+    -It first checks, whether the head is equal to null which means the list is empty.
+    -If the list is empty, both head and tail will point to the newly added node.
+    -If the list is not empty, the new node will be added to end of the list such that tail's 
+        next will point to the newly added node. This new node will become the new tail of the list.
+display() will display the nodes present in the list:
+    -Define a node current which initially points to the head of the list.
+    -Traverse through the list till current points to null.
+    -Display each node by making current to point to node next to it in each iteration.
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

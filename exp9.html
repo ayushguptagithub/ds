@@ -1,0 +1,273 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a  href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a class="active" href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+               
+    Aim:- To implement binary search tree ADT using linked list
+    Program:-
+    // C program to demonstrate delete operation in binary search tree
+    #include stdio.h
+    #include stdlib.h
+    struct node
+    {
+    int key;
+    struct node *left, *right;
+    };
+    // A utility function to create a new BST node
+    struct node *newNode(int item)
+    {
+    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
+    }
+    static int count = 0; leaf=0;
+    // A utility function to count the number of nodes in the tree
+    int countnodes(struct node *root)
+    {
+    if(root != NULL)
+    {
+    countnodes(root->left);
+    count++;
+    countnodes(root->right);
+    }
+    return count;
+    }
+    // A utility function to count the number of leaf nodes in the tree
+    int leafnodes(struct node* root)
+    {
+    if (root != NULL)
+    {
+    leafnodes(root->left);
+    if((root->left == NULL) && (root->right == NULL))
+    {
+    leaf++;
+    }
+    leafnodes(root->right);
+    }
+    return leaf;
+    }
+    // A utility function to do inorder traversal of BST
+    void inorder(struct node *root)
+    {
+    if (root != NULL)
+    {
+    inorder(root->left);
+    printf("%d ", root->key);
+    inorder(root->right);
+    }
+    }
+    /* A utility function to insert a new node with given key in BST */
+    struct node* insert(struct node* node, int key)
+    {
+    /* If the tree is empty, return a new node */
+    if (node == NULL) return newNode(key);
+    /* Otherwise, recur down the tree */
+    if (key < node->key)
+    node->left = insert(node->left, key);
+    else
+    node->right = insert(node->right, key);
+    /* return the (unchanged) node pointer */
+    return node;
+    }
+    /* Given a non-empty binary search tree, return the node with minimum
+    key value found in that tree. Note that the entire tree does not
+    need to be searched. */
+    struct node * minValueNode(struct node* node)
+    {
+    struct node* current = node;
+    /* loop down to find the leftmost leaf */
+    while (current && current->left != NULL)
+    current = current->left;
+    return current;
+    }
+    /* Given a binary search tree and a key, this function deletes the key
+    and returns the new root */
+    struct node* deleteNode(struct node* root, int key)
+    {
+    // base case
+    if (root == NULL) return root;
+    // If the key to be deleted is smaller than the root's key,
+    // then it lies in left subtree
+    if (key < root->key)
+    root->left = deleteNode(root->left, key);
+    // If the key to be deleted is greater than the root's key,
+    // then it lies in right subtree
+    else if (key > root->key)
+    root->right = deleteNode(root->right, key);
+    // if key is same as root's key, then This is the node
+    // to be deleted
+    else
+    {
+    // node with only one child or no child
+    if (root->left == NULL)
+    {
+    struct node *temp = root->right;
+    free(root);
+    return temp;
+    }
+    else if (root->right == NULL)
+    {
+    struct node *temp = root->left;
+    free(root);
+    return temp;
+    }
+    // node with two children: Get the inorder successor (smallest
+    // in the right subtree)
+    struct node* temp = minValueNode(root->right);
+    // Copy the inorder successor's content to this node
+    root->key = temp->key;
+    // Delete the inorder successor
+    root->right = deleteNode(root->right, temp->key);
+    }
+    return root;
+    }
+    // Driver Program to test above functions
+    int main()
+    {
+    /* Let us create following BST
+    50
+    / \
+    30 70
+    / \ / \
+    20 40 60 80 */
+    struct node *root = NULL;
+    root = insert(root, 50);
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
+    printf("Inorder traversal of the given tree \n");
+    inorder(root);
+    printf("\nNumber of nodes in the given tree: %d \n",countnodes(root));
+    printf("\nNumber of leaf nodes in the given tree: %d \n",leafnodes(root));
+    count=0;
+    leaf=0;
+    printf("\nDelete 20\n");
+    root = deleteNode(root, 20);
+    printf("Inorder traversal of the modified tree \n");
+    inorder(root);
+    printf("\nNumber of nodes in the given tree: %d \n",countnodes(root));
+    printf("\nNumber of leaf nodes in the given tree: %d \n",leafnodes(root));
+    count=0;
+    leaf=0;
+    printf("\nDelete 30\n");
+    root = deleteNode(root, 30);
+    printf("Inorder traversal of the modified tree \n");
+    inorder(root);
+    printf("\nNumber of nodes in the given tree: %d \n",countnodes(root));
+    printf("\nNumber of leaf nodes in the given tree: %d \n",leafnodes(root));
+    count=0;
+    leaf=0;
+    printf("\nDelete 50\n");
+    root = deleteNode(root, 50);
+    printf("Inorder traversal of the modified tree \n");
+    inorder(root);
+    printf("\nNumber of nodes in the given tree: %d \n",countnodes(root));
+    printf("\nNumber of leaf nodes in the given tree: %d \n",leafnodes(root));
+    count=0;
+    leaf=0;
+    return 0;
+    }
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+    Algorithm
+Define Node class which has three attributes namely: data left and right. Here, left represents the left child of the node and right represents the right child of the node.
+When a node is created, data will pass to data attribute of the node and both left and right will be set to null.
+Define another class which has an attribute root.
+Root represents the root node of the tree and initialize it to null.
+insert() will add a new node to the tree:
+It checks whether the root is null, which means the tree is empty. It will add the new node as root.
+Else, it will add root to the queue.
+The variable node represents the current node.
+First, it checks whether a node has a left and right child. If yes, it will add both nodes to queue.
+If the left child is not present, it will add the new node as the left child.
+If the left is present, then it will add the new node as the right child.
+Inorder() will display nodes of the tree in inorder fashion.
+It traverses the entire tree then prints out left child followed by root then followed by the right child.
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>
+

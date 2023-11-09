@@ -1,0 +1,207 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a  href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a class="active" href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+      To implement circular queue ADT using array.
+    #include stdio.h
+        # define max 4
+        int queue[max]; // array declaration
+        int front =-1;
+        int rear =-1;
+        // function to insert an element in a circular queue
+        void enqueue(int element)
+        {
+        if(front==-1 && rear==-1) // condition to check queue is empty
+        {
+        front=0;
+        rear=0;
+        queue[rear]=element;
+        }
+        else if((rear+1)%max==front) // condition to check queue is full
+        {
+        printf("Queue is overflow..");
+        }
+        else
+        {
+        rear=(rear+1)%max; // rear is incremented
+        queue[rear]=element; // assigning a value to the queue at the rear position.
+        }
+        }
+        // function to delete the element from the queue
+        int dequeue()
+        {
+        if((front==-1) && (rear==-1)) // condition to check queue is empty
+        {
+        printf("\nQueue is underflow..");
+        }
+        else if(front==rear)
+        {
+        printf("\nThe dequeued element is %d", queue[front]);
+        front=-1;
+        rear=-1;
+        }
+        else
+        {
+        printf("\nThe dequeued element is %d", queue[front]);
+        front=(front+1)%max;
+        }
+        }
+        // function to display the elements of a queue
+        void display()
+        {
+        int i;
+        if(front==-1 && rear==-1)
+        {
+        printf("\n Queue is empty..");
+        }
+        else
+        {
+        printf("\nElements in a Queue are :");
+        for(i=front;i<=rear;i++)
+        {
+        printf("%d,", queue[i]);
+        }
+        }
+        }
+        int main()
+        {
+        int choice=1,x; // variables declaration
+        while(choice<4 && choice!=0) // while loop
+        {
+        printf("\n Press 1: Insert an element");
+        printf("\nPress 2: Delete an element");
+        printf("\nPress 3: Display the element");
+        printf("\nEnter your choice");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+        case 1:
+        printf("Enter the element which is to be inserted");
+        scanf("%d", &x);
+        enqueue(x);
+        break;
+        case 2:
+        dequeue();
+        break;
+        case 3:
+        display();
+        }}
+        return 0; }
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+        Algorithm to insert an element in a circular queue
+
+        Step 1: IF (REAR+1)%MAX = FRONT
+        Write " OVERFLOW "
+        Goto step 4
+        [End OF IF]
+        Step 2: IF FRONT = -1 and REAR = -1
+        SET FRONT = REAR = 0
+        ELSE IF REAR = MAX - 1 and FRONT ! = 0
+        SET REAR = 0
+        ELSE
+        SET REAR = (REAR + 1) % MAX
+        [END OF IF]
+        Step 3: SET QUEUE[REAR] = VAL
+        Step 4: EXIT
+
+
+        Algorithm to delete an element from the circular queue
+
+        Step 1: IF FRONT = -1
+        Write " UNDERFLOW "
+        Goto Step 4
+        [END of IF]
+        Step 2: SET VAL = QUEUE[FRONT]
+        Step 3: IF FRONT = REAR
+        SET FRONT = REAR = -1
+        ELSE
+        IF FRONT = MAX -1
+        SET FRONT = 0
+        ELSE
+        SET FRONT = FRONT + 1
+        [END of IF]
+        [END OF IF]
+        Step 4: EXIT
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

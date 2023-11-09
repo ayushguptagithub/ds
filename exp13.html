@@ -1,0 +1,180 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a  href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a  href="exp12.html">Exp12</a></li>
+        <li><a class="active" href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+Aim: implement selection sort and insertion sort algorithms.
+Program:
+//Code for Selection Sort:
+#include &lt;stdio.h>
+int main()
+{
+int a[100], n, i, j, position, swap;
+printf("Enter number of elements \n");
+scanf("%d", &n);
+printf("Enter %d Numbers \n", n);
+for (i = 0; i &lt; n; i++)
+scanf("%d", &a[i]);
+for(i = 0; i &lt; n - 1; i++)
+{
+position=i;
+for(j = i + 1; j &lt; n; j++)
+{
+if(a[position] > a[j])
+position=j;
+}
+if(position != i)
+{
+swap=a[i];
+a[i]=a[position];
+a[position]=swap;
+}
+}
+printf("Sorted Array is:\n");
+for(i = 0; i &lt; n; i++)
+printf("%d \n", a[i]);
+return 0;
+}
+
+
+//Code for Insertion Sort:
+#include &lt;stdio.h>
+int main(void)
+{
+int n, i, j, temp;
+int arr[64];
+printf("Enter number of elements\n");
+scanf("%d", &n);
+printf("Enter %d integers\n", n);
+for (i = 0; i &lt; n; i++)
+{
+scanf("%d", &arr[i]);
+}
+for (i = 1; i &lt; n; i++)
+{
+j = i;
+while (j > 0 && arr[j - 1] > arr[j])
+{
+temp = arr[j];
+arr[j] = arr[j - 1];
+arr[j - 1] = temp;
+j--;
+}
+}
+printf("Sorted list in ascending order:\n");
+for (i = 0; i &lt; n; i++)
+{
+printf("%d\n", arr[i]);
+}
+return 0;
+}
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+  Algorithm of the Selection Sort Algorithm
+  The selection sort algorithm is as follows:
+  
+  Step 1: Set Min to location 0 in Step 1.
+  
+  Step 2: Look for the smallest element on the list.
+  
+  Step 3: Replace the value at location Min with a different value.
+  
+  Step 4: Increase Min to point to the next element
+  
+  Step 5: Continue until the list is sorted.
+
+
+  The simple steps of achieving the insertion sort are listed as follows -
+
+  Step 1 - If the element is the first element, assume that it is already sorted. Return 1.
+
+  Step2 - Pick the next element, and store it separately in a key.
+
+  Step3 - Now, compare the key with all elements in the sorted array.
+
+  Step 4 - If the element in the sorted array is smaller than the current element, then move to the next element. Else, shift greater elements in the array towards the right.
+
+  Step 5 - Insert the value.
+
+  Step 6 - Repeat until the array is sorted.
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a  href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a class="active" href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+    Aim:- To implement Linear Queue ADT using a linked list.
+    Program:-
+    #include stdio.h
+    #include stdlib.h
+    // Structure to create a node with data and the next pointer
+    struct node {
+    int data;
+    struct node * next;
+    };
+    struct node * front = NULL;
+    struct node * rear = NULL;
+    // Enqueue() operation on a queue
+    void enqueue(int value) {
+    struct node * ptr;
+    ptr = (struct node * ) malloc(sizeof(struct node));
+    ptr -> data = value;
+    ptr -> next = NULL;
+    if ((front == NULL) && (rear == NULL)) {
+    front = rear = ptr;
+    } else {
+    rear -> next = ptr;
+    rear = ptr;
+    }
+    printf("Node is Inserted\n\n");
+    }
+    // Dequeue() operation on a queue
+    int dequeue() {
+    if (front == NULL) {
+    printf("\nUnderflow\n");
+    return -1;
+    } else {
+    struct node * temp = front;
+    int temp_data = front -> data;
+    front = front -> next;
+    free(temp);
+    return temp_data;
+    }
+    }
+    // Display all elements of the queue
+    void display() {
+    struct node * temp;
+    if ((front == NULL) && (rear == NULL)) {
+    printf("\nQueue is Empty\n");
+    } else {
+    printf("The queue is \n");
+    temp = front;
+    while (temp) {
+    printf("%d--->", temp -> data);
+    temp = temp -> next;
+    }
+    printf("NULL\n\n");
+    }
+    }
+    int main() {
+    int choice, value;
+    printf("\nImplementation of Queue using Linked List\n");
+    while (choice != 4) {
+    printf("1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n");
+    printf("\nEnter your choice : ");
+    scanf("%d", & choice);
+    switch (choice) {
+    case 1:
+    printf("\nEnter the value to insert: ");
+    scanf("%d", & value);
+    enqueue(value);
+    break;
+    case 2:
+    printf("Deleted element is :%d\n", dequeue());
+    break;
+    case 3:
+    display();
+    break;
+    case 4:
+    exit(0);
+    break;
+    default:
+    printf("\nWrong Choice\n");
+    }
+    }
+    return 0;
+    }
+                 
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+    Step 1: Allocate the space for the new node PTR
+    Step 2: SET PTR -> DATA = VAL
+    Step 3: IF FRONT = NULL
+    SET FRONT = REAR = PTR
+    SET FRONT -> NEXT = REAR -> NEXT = NULL
+    ELSE
+    SET REAR -> NEXT = PTR
+    SET REAR = PTR
+    SET REAR -> NEXT = NULL
+    [END OF IF]
+    Step 4: END
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>
